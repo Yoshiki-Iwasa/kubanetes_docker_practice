@@ -1,0 +1,27 @@
+FROM alpine:latest
+
+RUN apk update \
+    && apk add openrc vim\
+    && sed -i'.bak' 's/^#rc_sys=""/rc_sys="lxc"/' /etc/rc.conf \
+	&& sed -i 's/^#rc_provide="!net"/rc_provide="loopback net"/' /etc/rc.conf \
+	&& sed -i'.bak' '/getty/d' /etc/inittab \
+	&& sed -i'.bak' 's/mount -t tmpfs/# mount -t tmpfs/' /lib/rc/sh/init.sh \
+	&& sed -i'.bak' 's/hostname $opts/# hostname $opts/' /etc/init.d/hostname \
+	&& sed -i'.bak' 's/cgroup_add_service$/# cgroup_add_service/' /lib/rc/sh/openrc-run.sh \
+	&& mkdir /run/openrc \
+	&& touch /run/openrc/softlevel
+
+RUN apk add mysql mysql-client \
+    && rc-update add mariadb \
+    && rc-status \
+    && /etc/init.d/mariadb setup \
+    && rc-service mariadb start \
+    && mysql -e "CREATE DATABASE dbtest;" \
+	&& mysql -e "CREATE USER 'dbuser'@'localhost' identified by 'dbpassword';" \
+	&& mysql -e "GRANT ALL PRIVILEGES ON dbtest.* TO 'dbuser'@'localhost';" \
+	&& mysql -e "FLUSH PRIVILEGES;" \
+    && mysql -e "create table dbtest.user (id int, name varchar(10));" \
+    && mysql -e "exit"
+COPY ./srcs/start.sh .
+RUN chmod 777 ./start.sh
+ENTRYPOINT [ "./start.sh" ]
