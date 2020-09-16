@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+    web:
+        image: yiwasa_nginx
+        ports:
+            - "8080:8080"
