@@ -1,9 +1,14 @@
 version: '3'
 
 services:
-    web:
-        image: yiwasa_nginx
+    mysql:
+        image: mysql_test
+        restart: always
+
+    wordpress:
+        image: wp_test
         ports:
-            - "8080:80"
-            - "443:443"
-            - "22:22"
+            - 5000:5000
+        depends_on:
+            - mysql
+        restart: always
