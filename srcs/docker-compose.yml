@@ -4,6 +4,8 @@ services:
     mysql:
         image: mysql_test
         restart: always
+        ports:
+            - 3306:3306
 
     wordpress:
         image: wp_test
@@ -12,3 +14,4 @@ services:
         depends_on:
             - mysql
         restart: always
+        tty: true
