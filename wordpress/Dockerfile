@@ -27,6 +27,7 @@ RUN mkdir /www \
 	&& chown -R lighttpd /www \
     && rm -rf latest.tar.gz \
     && mv wordpress /www \
+	&& ln -s /www/wordpress/ /var/www/localhost/htdocs/wordpress \
     && mv /www/wordpress/wp-config-sample.php /www/wordpress/wp-config.php
 COPY ./srcs/wp-config.php /www/wordpress/wp-config.php
 
