@@ -3,7 +3,7 @@ FROM alpine:latest
 #openrcはサービスの起動に必要
 
 RUN apk update \
-	&& apk add --no-cache vim procps nginx openrc openssl openssh supervisor\
+	&& apk add --no-cache vim procps nginx openrc openssl openssh supervisor mysql-client\
 	&& mkdir -p /run/nginx \
 	&& sed -i'.bak' 's/^#rc_sys=""/rc_sys="lxc"/' /etc/rc.conf \
 	&& sed -i 's/^#rc_provide="!net"/rc_provide="loopback net"/' /etc/rc.conf \
@@ -26,6 +26,7 @@ RUN mkdir /etc/nginx/ssl \
 	&& rc-status
 
 COPY ./srcs/start.sh .
+COPY ./srcs/default.conf /etc/nginx/conf.d/default.conf
 RUN chmod 777 ./start.sh
 ENTRYPOINT [ "./start.sh" ]
 
