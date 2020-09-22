@@ -12,11 +12,21 @@ services:
         image: wp_test
         container_name: wp_test
         ports:
-            - 5000:80
+            - 5050:80
         depends_on:
             - mysql
         restart: always
-        # tty: true
+        tty: true
+
+    phpmyadmin:
+        image: pma_test
+        container_name: pma_test
+        ports:
+            - 5000:80
+        depends_on:
+                - mysql
+        restart: always
+        tty: true
 
     nginx:
         image: nginx_test
@@ -25,6 +35,4 @@ services:
             - 8080:80
             - 443:443
             - 22:22
-        depends_on:
-            - wordpress
         restart: always

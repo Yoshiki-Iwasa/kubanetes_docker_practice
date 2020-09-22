@@ -1,8 +1,7 @@
 FROM alpine:latest
 
-#opnerc の設定
 RUN apk update \
-    && apk add vim wget openrc procps \
+	&& apk add vim wget openrc procps \
 	&& sed -i'.bak' 's/^#rc_sys=""/rc_sys="lxc"/' /etc/rc.conf \
 	&& sed -i 's/^#rc_provide="!net"/rc_provide="loopback net"/' /etc/rc.conf \
 	&& sed -i'.bak' '/getty/d' /etc/inittab \
@@ -12,23 +11,26 @@ RUN apk update \
 	&& mkdir /run/openrc \
 	&& touch /run/openrc/softlevel
 
-# #lightttpd の設定
 RUN apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
 COPY ./srcs/lighttpd.conf /etc/lighttpd/lighttpd.conf
 COPY ./srcs/mod_fastcgi.conf /etc/lighttpd/mod_fastcgi.conf
+
 RUN rc-update add lighttpd default \
 	&& rc-status \
 	&& rc-service lighttpd start \
-	&& apk add wget mysql-client \
+	&& apk add mysql-client php-mysqli \
 	&& mkdir -p /usr/share/webapps/ \
-	&& cd /usr/share/webapps/ \
-	&& wget http://wordpress.org/latest.tar.gz \
-	&&  tar -xzvf latest.tar.gz \
-	&& rm latest.tar.gz \
-	&& chown -R lighttpd /usr/share/webapps/ \
-	&& ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress \
+	&& cd /usr/share/webapps \
+	&& wget http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.2-all-languages.tar.gz \
+	&& tar zxvf phpMyAdmin-5.0.2-all-languages.tar.gz \
+	&& rm phpMyAdmin-5.0.2-all-languages.tar.gz \
+	&& mv phpMyAdmin-5.0.2-all-languages phpmyadmin \
+	&& chmod -R 777 /usr/share/webapps/ \
+	&& ln -s /usr/share/webapps/phpmyadmin/ /var/www/localhost/htdocs/phpmyadmin \
+	&& rc-update add lighttpd default \
 	&& rc-status
-EXPOSE 5050
+EXPOSE 5000
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
+COPY ./srcs/info.php /var/www/localhost/htdocs/phpmyadmin/
 ENTRYPOINT [ "./start.sh" ]
