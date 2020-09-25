@@ -34,5 +34,14 @@ services:
         ports:
             - 8080:80
             - 443:443
-            - 22:22
+            - "22:22"
         restart: always
+
+    vsftpd:
+        image: ftps_test
+        container_name: ftps_test
+        ports:
+            - "21:21"
+            - 60000:60000
+            - 60001:60001
+        tty: true

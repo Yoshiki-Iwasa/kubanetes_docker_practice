@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yiwasa <yiwasa@student.42tokyo.jp>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/09/25 22:26:11 by yiwasa            #+#    #+#              #
+#    Updated: 2020/09/26 07:20:25 by yiwasa           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FROM alpine:latest
 
 RUN apk update \
@@ -11,10 +23,11 @@ RUN apk update \
 	&& mkdir /run/openrc \
 	&& touch /run/openrc/softlevel
 
-#InflexDB インストール
-RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_2.0.0-beta.16_linux_amd64.tar.gz \
-	&& tar xvfz influxdb_2.0.0-beta.16_linux_amd64.tar.gz
+RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+	&& apk add telegraf@testing
 
+#InflexDB インストール
+RUN apk add influxdb \
+	&& rc-update add influxdb \
+	&& rc-status
 #Tregraf インストール
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3_linux_amd64.tar.gz \
-	&&tar xf telegraf-1.15.3_linux_amd64.tar.gz
