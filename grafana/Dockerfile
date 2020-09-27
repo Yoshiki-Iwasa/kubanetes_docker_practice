@@ -13,4 +13,13 @@ RUN apk update \
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add grafana@testing \
 	&& rc-update add grafana \
+	&& rc-status \
+	&& apk add rsyslog \
+	&& rc-update add rsyslog\
+	&& rc-status \
+	&& rc-service rsyslog start \
 	&& rc-status
+COPY ./srcs/start.sh .
+RUN chmod 777 ./start.sh
+COPY ./srcs/grafana.ini /etc/grafana.ini
+ENTRYPOINT [ "./start.sh" ]
