@@ -21,5 +21,6 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 	&& rc-status
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
-COPY ./srcs/grafana.ini /etc/grafana.ini
+EXPOSE 3000
+COPY ./srcs/grafana /etc/conf.d/grafana
 ENTRYPOINT [ "./start.sh" ]

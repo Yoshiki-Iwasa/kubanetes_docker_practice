@@ -45,3 +45,15 @@ services:
             - 60000:60000
             - 60001:60001
         tty: true
+    influxDB:
+        image: inf_test
+        container_name: inf_test
+        ports:
+            - "8086:8086"
+        tty: true
+    Grafana:
+        image: gra_test
+        container_name: gra_test
+        ports:
+            - "3000:3000"
+        tty: true

@@ -6,7 +6,7 @@
 #    By: yiwasa <yiwasa@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/25 22:26:11 by yiwasa            #+#    #+#              #
-#    Updated: 2020/09/26 07:20:25 by yiwasa           ###   ########.fr        #
+#    Updated: 2020/09/28 08:33:59 by yiwasa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ RUN apk update \
 	&& mkdir /run/openrc \
 	&& touch /run/openrc/softlevel
 
+#Tregraf インストール
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add telegraf@testing
 
@@ -30,4 +31,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 RUN apk add influxdb \
 	&& rc-update add influxdb \
 	&& rc-status
-#Tregraf インストール
+
+COPY ./srcs/start.sh .
+RUN chmod 777 ./start.sh
+ENTRYPOINT [ "./start.sh" ]
