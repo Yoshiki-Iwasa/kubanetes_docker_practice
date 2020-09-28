@@ -28,6 +28,12 @@ RUN rc-update add lighttpd default \
 	&& chown -R lighttpd /usr/share/webapps/ \
 	&& ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress \
 	&& rc-status
+
+# Telegraf
+RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+	&& apk add telegraf@testing \
+	&& sed -i -e 's/hostname = ""/hostname = "wp_test"/g' /etc/telegraf.conf \
+	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf_test:8086"\]/g' /etc/telegraf.conf
 EXPOSE 5050
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh

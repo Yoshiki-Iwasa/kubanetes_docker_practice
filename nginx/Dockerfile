@@ -3,7 +3,7 @@ FROM alpine:latest
 #openrcはサービスの起動に必要
 
 RUN apk update \
-	&& apk add --no-cache vim procps nginx openrc openssl openssh supervisor mysql-client\
+	&& apk add --no-cache vim procps nginx openrc openssl openssh \
 	&& mkdir -p /run/nginx \
 	&& sed -i'.bak' 's/^#rc_sys=""/rc_sys="lxc"/' /etc/rc.conf \
 	&& sed -i 's/^#rc_provide="!net"/rc_provide="loopback net"/' /etc/rc.conf \
@@ -15,6 +15,7 @@ RUN apk update \
 	&& touch /run/openrc/softlevel \
 	&& sed -i'.bak' 's/return 404;/root html;\n\t\tindex index.html;/' /etc/nginx/conf.d/default.conf
 
+# Nginx インストール
 RUN mkdir /etc/nginx/ssl \
 	&& openssl genrsa -out /etc/nginx/ssl/server.key 2048 \
 	&& openssl req -new -key /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.csr -subj "/C=JP/ST=Tokyo/L=/O=/OU=/CN=localhost/DNS=localhost" \
@@ -24,6 +25,11 @@ RUN mkdir /etc/nginx/ssl \
 	&& touch test.txt \
 	&& rc-update add sshd \
 	&& rc-status
+# Telegraf インストール
+RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+	&& apk add telegraf@testing \
+	&& sed -i -e 's/hostname = ""/hostname = "nginx_test"/g' /etc/telegraf.conf \
+	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf_test:8086"\]/g' /etc/telegraf.conf
 
 COPY ./srcs/start.sh .
 COPY ./srcs/default.conf /etc/nginx/conf.d/default.conf

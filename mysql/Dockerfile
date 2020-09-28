@@ -1,5 +1,6 @@
 FROM alpine:latest
 
+#OpenRC インストール
 RUN apk update \
     && apk add openrc vim\
     && sed -i'.bak' 's/^#rc_sys=""/rc_sys="lxc"/' /etc/rc.conf \
@@ -11,6 +12,7 @@ RUN apk update \
 	&& mkdir /run/openrc \
 	&& touch /run/openrc/softlevel
 
+#Mysql インストール
 RUN apk add mysql mysql-client \
     && rc-update add mariadb \
     && rc-status \
@@ -23,6 +25,12 @@ RUN apk add mysql mysql-client \
     && mysql -e "create table dbtest.user (id int, name varchar(10));" \
     && mysql -e "exit" \
 		&& sed -i 's/skip-networking/skip-networking\=0/g' /etc/my.cnf.d/mariadb-server.cnf
+
+# Telegraf インストール
+RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+	&& apk add telegraf@testing \
+	&& sed -i -e 's/hostname = ""/hostname = "mysql_test"/g' /etc/telegraf.conf \
+	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf_test:8086"\]/g' /etc/telegraf.conf
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
 ENTRYPOINT [ "./start.sh" ]
