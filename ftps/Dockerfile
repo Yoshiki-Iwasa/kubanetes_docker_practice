@@ -32,4 +32,4 @@ RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 COPY ./srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
-# ENTRYPOINT [ "./start.sh" ]
+ENTRYPOINT [ "./start.sh" ]
