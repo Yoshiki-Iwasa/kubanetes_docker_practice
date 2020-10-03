@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 #pod を作る前に $ eval $(minikube docker-env)
+#その上で、docker build してからpod を作る
 # を作る必要あり。
 
 # see what changes would be made, returns nonzero returncode if different
