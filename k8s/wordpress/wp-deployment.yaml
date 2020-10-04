@@ -5,7 +5,7 @@ metadata:
   labels:
     component: wordpress
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       component: wordpress
@@ -20,17 +20,3 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: wp-service
-spec:
-  type: LoadBalancer
-  selector:
-    component: wordpress
-  ports:
-  - name: wordpress
-    protocol: TCP
-    port: 5050
-    targetPort: 80

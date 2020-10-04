@@ -5,7 +5,7 @@ metadata:
   labels:
     component: grafana
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       component: grafana
