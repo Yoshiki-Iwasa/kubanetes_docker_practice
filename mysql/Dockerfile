@@ -2,7 +2,7 @@ FROM alpine:latest
 
 #OpenRC インストール
 RUN apk update \
-    && apk add openrc vim\
+    && apk add openrc vim curl\
     && sed -i'.bak' 's/^#rc_sys=""/rc_sys="lxc"/' /etc/rc.conf \
 	&& sed -i 's/^#rc_provide="!net"/rc_provide="loopback net"/' /etc/rc.conf \
 	&& sed -i'.bak' '/getty/d' /etc/inittab \
@@ -29,8 +29,8 @@ RUN apk add mysql mysql-client \
 # Telegraf インストール
 RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add telegraf@testing \
-	&& sed -i -e 's/hostname = ""/hostname = "mysql_test"/g' /etc/telegraf.conf \
-	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf_test:8086"\]/g' /etc/telegraf.conf
+	&& sed -i -e 's/hostname = ""/hostname = "mysql-service"/g' /etc/telegraf.conf \
+	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf-service:8086"\]/g' /etc/telegraf.conf
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
 ENTRYPOINT [ "./start.sh" ]
