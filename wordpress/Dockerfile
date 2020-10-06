@@ -39,6 +39,7 @@ RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 
 COPY ./srcs/user.sh .
 COPY ./srcs/start.sh .
-RUN chmod 777 ./start.sh ./user.sh
+RUN chmod 777 ./start.sh
+RUN chmod 777 ./user.sh
 EXPOSE 5050
 ENTRYPOINT [ "./start.sh" ]
