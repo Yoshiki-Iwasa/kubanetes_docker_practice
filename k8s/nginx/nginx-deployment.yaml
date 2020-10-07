@@ -15,7 +15,7 @@ spec:
         component: nginx
     spec:
       containers:
-      - name: nginx-test
+      - name: nginx
         image: nginx-test
         imagePullPolicy: Never
         ports:
@@ -38,3 +38,7 @@ spec:
     protocol: TCP
     port: 443
     targetPort: 443
+  - name: ssh
+    protocol: TCP
+    port: 22
+    targetPort: 22

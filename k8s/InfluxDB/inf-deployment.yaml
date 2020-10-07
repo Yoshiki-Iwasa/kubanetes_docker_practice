@@ -15,7 +15,7 @@ spec:
         component: influxdb
     spec:
       containers:
-      - name: inf-test
+      - name: influxdb
         image: inf-test
         imagePullPolicy: Never
         ports:

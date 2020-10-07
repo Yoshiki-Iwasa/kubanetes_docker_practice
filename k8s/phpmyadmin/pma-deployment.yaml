@@ -15,7 +15,7 @@ spec:
         component: phpmyadmin
     spec:
       containers:
-      - name: pma-test
+      - name: phpmyadmin
         image: pma-test
         imagePullPolicy: Never
         ports:

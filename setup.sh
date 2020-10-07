@@ -57,9 +57,10 @@ MINIKUBE_IP=$(minikube node list | awk '{print $2}')
 NGINX_IP=$(kubectl get svc | grep nginx-service | tr -s ' ' | cut -d" " -f 4)
 GRA_IP=$(kubectl get svc | grep gra-service | tr -s ' ' | cut -d" " -f 4)
 PMA_IP=$(kubectl get svc | grep pma-service | tr -s ' ' | cut -d" " -f 4)
-
+FTPS_IP=$(kubectl get svc | grep ftps-service | tr -s ' ' | cut -d" " -f 4)
 #static route を設定していく
 echo '180563180yI' | sudo -S route add ${NGINX_IP}/32 ${MINIKUBE_IP} 2>/dev/null
 echo '180563180yI' | sudo -S route add ${GRA_IP}/32 ${MINIKUBE_IP} 2>/dev/null
 echo '180563180yI' | sudo -S route add ${PMA_IP}/32 ${MINIKUBE_IP} 2>/dev/null
 echo '180563180yI' | sudo -S route add ${WP_IP}/32 ${MINIKUBE_IP} 2>/dev/null
+echo '180563180yI' | sudo -S route add ${FTPS_IP}/32 ${MINIKUBE_IP} 2>/dev/null

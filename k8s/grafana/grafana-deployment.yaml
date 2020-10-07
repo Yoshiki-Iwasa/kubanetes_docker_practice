@@ -15,7 +15,7 @@ spec:
         component: grafana
     spec:
       containers:
-      - name: gra-test
+      - name: grafana
         image: gra-test
         imagePullPolicy: Never
         ports:

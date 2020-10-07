@@ -1,4 +1,5 @@
 #!bin/zsh
+eval $(minikube docker-env)
 kubectl delete -f ./k8s/mysql
 kubectl delete -f ./k8s/nginx
 kubectl delete -f ./k8s/wordpress

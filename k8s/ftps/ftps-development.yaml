@@ -15,7 +15,7 @@ spec:
         component: ftps
     spec:
       containers:
-      - name: ftps-test
+      - name: ftps
         image: ftps-test
         imagePullPolicy: Never
         ports:

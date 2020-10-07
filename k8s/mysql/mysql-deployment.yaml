@@ -15,7 +15,7 @@ spec:
         component: mysql
     spec:
       containers:
-      - name: mysql-test
+      - name: mysql
         image: mysql-test
         imagePullPolicy: Never
         ports:

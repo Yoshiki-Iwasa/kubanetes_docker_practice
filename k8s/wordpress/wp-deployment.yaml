@@ -15,7 +15,7 @@ spec:
         component: wordpress
     spec:
       containers:
-      - name: wp-test
+      - name: wordpress
         image: wp-test
         imagePullPolicy: Never
         ports:
