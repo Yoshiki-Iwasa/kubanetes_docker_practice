@@ -8,6 +8,7 @@ docker build -t ftps-test ./ftps
 docker build -t gra-test ./grafana
 docker build -t inf-test ./InfluxDB
 docker build -t mysql-test ./mysql
+docker build -t pma-test ./phpmyadmin
 # wordpress の イメージ作成と pod の作成は、service を作ってから。
 #MetalLB のConfigMap を apply
 kubectl apply -f ./k8s/MetalLB/metallb-config.yaml
