@@ -5,7 +5,7 @@ metadata:
   labels:
     component: influxdb
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       component: influxdb
@@ -20,13 +20,20 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8086
+        volumeMounts:
+        - name: inf-pv
+          mountPath: "/var/lib/influxdb"
+      volumes:
+      - name: inf-pv
+        persistentVolumeClaim:
+          claimName: inf-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: inf-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     component: influxdb
   ports:

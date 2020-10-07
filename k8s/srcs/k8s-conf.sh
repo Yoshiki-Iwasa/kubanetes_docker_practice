@@ -4,6 +4,8 @@
 #その上で、docker build してからpod を作る
 # を作る必要あり。
 
+# volume -> claim -> pod の順で作るべし。
+
 # see what changes would be made, returns nonzero returncode if different
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
