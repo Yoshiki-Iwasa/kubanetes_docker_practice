@@ -27,8 +27,8 @@ RUN mkdir /etc/vsftpd/ssl \
 #Telegrafのインストール
 RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add telegraf@testing \
-	&& sed -i -e 's/hostname = ""/hostname = "ftps_test"/g' /etc/telegraf.conf \
-	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf_test:8086"\]/g' /etc/telegraf.conf
+	&& sed -i -e 's/hostname = ""/hostname = "ftps-service"/g' /etc/telegraf.conf \
+	&& sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/inf-service:8086"\]/g' /etc/telegraf.conf
 COPY ./srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY ./srcs/.lftprc .
 RUN mv .lftprc ~
