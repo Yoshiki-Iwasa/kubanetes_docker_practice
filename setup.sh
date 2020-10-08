@@ -64,3 +64,12 @@ echo '180563180yI' | sudo -S route add ${GRA_IP}/32 ${MINIKUBE_IP} 2>/dev/null
 echo '180563180yI' | sudo -S route add ${PMA_IP}/32 ${MINIKUBE_IP} 2>/dev/null
 echo '180563180yI' | sudo -S route add ${WP_IP}/32 ${MINIKUBE_IP} 2>/dev/null
 echo '180563180yI' | sudo -S route add ${FTPS_IP}/32 ${MINIKUBE_IP} 2>/dev/null
+
+touch ~/.lftprc
+echo "set ftp:ssl-auth TLS" >> ~/.lftprc
+echo "set ftp:ssl-force true" >> ~/.lftprc
+echo "set ftp:ssl-allow yes" >> ~/.lftprc
+echo "set ftp:ssl-protect-list yes" >> ~/.lftprc
+echo "set ftp:ssl-protect-data yes" >> ~/.lftprc
+echo "set ftp:ssl-protect-fxp yes" >> ~/.lftprc
+echo "set ssl:verify-certificate no" >> ~/.lftprc
