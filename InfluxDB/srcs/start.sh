@@ -1,4 +1,3 @@
 #!/bin/sh
-rc-service influxdb start
 rc-service telegraf start
-tail -f /dev/null
+/usr/sbin/influxd -config /etc/influxdb.conf

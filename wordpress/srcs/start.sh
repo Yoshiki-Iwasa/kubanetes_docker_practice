@@ -2,4 +2,5 @@
 rc-service lighttpd restart
 rc-service telegraf start
 ./user.sh
-tail -f /dev/null
+rc-service lighttpd stop
+/usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf

@@ -8,3 +8,4 @@ mysql -e "FLUSH PRIVILEGES;"
 mysql -e "create table dbtest.user (id int, name varchar(10));"
 mysql -e "exit"
 sed -i 's/skip-networking/skip-networking\=0/g' /etc/my.cnf.d/mariadb-server.cnf
+rc-service mariadb stop

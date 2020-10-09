@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+- name: influxdb
+  type: influxdb
+  access: proxy
+  orgId: 1
+  url: http://inf-service:8086
+  user: admin
+  database: telegraf
+  isDefault: true
+  editable: false
+  version: 1

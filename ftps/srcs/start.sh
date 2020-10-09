@@ -1,4 +1,3 @@
 #!/bin/sh
-rc-service vsftpd restart
 rc-service telegraf restart
-tail -f /dev/null
+/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
