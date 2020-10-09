@@ -15,12 +15,8 @@ RUN apk update \
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add grafana@testing \
 	&& mkdir -p /var/lib/grafana/provisioning/dashboards \
-	&& mkdir -p /etc/grafana/provisioning/datasources
-COPY ./srcs/provisioning/dashboard.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/provisioning/dashboard.yaml /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/provisioning/datasource.yaml /etc/grafana/provisioning/datasources
-
-RUN rc-update add grafana \
+	&& mkdir -p /etc/grafana/provisioning/datasources \
+	&& rc-update add grafana \
 	&& rc-status \
 	&& apk add rsyslog \
 	&& rc-update add rsyslog\
@@ -36,5 +32,8 @@ RUN	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
 EXPOSE 3000
+COPY ./srcs/provisioning/dashboard.yaml /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/provisioning/grafana.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/provisioning/datasource.yaml /etc/grafana/provisioning/datasources
 COPY ./srcs/grafana /etc/conf.d/grafana
 ENTRYPOINT [ "./start.sh" ]
