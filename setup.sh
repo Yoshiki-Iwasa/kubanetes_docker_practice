@@ -81,7 +81,7 @@
 
 #!bin/zsh
 #minikube stop
-minikube start --vm-driver=none --extra-config=apiserver.service-node-port-range=1-65535
+sudo minikube start --vm-driver=none --extra-config=apiserver.service-node-port-range=1-65535
 eval export DOCKER_TLS_VERIFY="";export DOCKER_HOST="";export DOCKER_CERT_PATH="";export MINIKUBE_ACTIVE_DOCKERD=""
 sudo chmod -R 777 ~/.minikube
 sudo chmod -R 777 ~/.kube
