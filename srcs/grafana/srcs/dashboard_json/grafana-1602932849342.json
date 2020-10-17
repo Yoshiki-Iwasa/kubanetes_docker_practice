@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -23,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -103,7 +103,7 @@
             {
               "key": "host",
               "operator": "=",
-              "value": "ftps-service"
+              "value": "gra-service"
             }
           ]
         }
@@ -162,7 +162,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "ftps",
-  "uid": "VPR84jcMk",
+  "title": "grafana",
+  "uid": "PFtquCcGz",
   "version": 2
 }

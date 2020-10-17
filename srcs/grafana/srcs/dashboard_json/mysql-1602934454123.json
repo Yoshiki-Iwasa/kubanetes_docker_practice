@@ -23,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -163,6 +163,6 @@
   "timepicker": {},
   "timezone": "",
   "title": "mysql",
-  "uid": "U7_rVCcMk",
+  "uid": "mjhYjjcGk",
   "version": 1
 }

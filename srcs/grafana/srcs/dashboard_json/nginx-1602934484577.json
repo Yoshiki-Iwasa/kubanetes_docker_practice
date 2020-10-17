@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -23,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -163,6 +163,6 @@
   "timepicker": {},
   "timezone": "",
   "title": "nginx",
-  "uid": "ssu3VCcGk",
+  "uid": "WhAPCjcMz",
   "version": 1
 }

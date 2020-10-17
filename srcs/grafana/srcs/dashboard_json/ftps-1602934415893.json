@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -23,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -103,7 +103,7 @@
             {
               "key": "host",
               "operator": "=",
-              "value": "pma-service"
+              "value": "ftps-service"
             }
           ]
         }
@@ -162,7 +162,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "phpmyadmin",
-  "uid": "m0_e4CcGz",
+  "title": "ftps",
+  "uid": "JoKBjj5Mz",
   "version": 1
 }

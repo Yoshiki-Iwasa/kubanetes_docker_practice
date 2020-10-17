@@ -15,7 +15,7 @@ RUN apk update \
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add grafana@testing \
 	&& mkdir -p /var/lib/grafana/provisioning/dashboards \
-	&& mkdir -p /etc/grafana/provisioning/datasources \
+	&& mkdir -p /var/lib/grafana/provisioning/datasources \
 	&& rc-update add grafana \
 	&& rc-status \
 	&& apk add rsyslog \
@@ -33,13 +33,14 @@ COPY ./srcs/start.sh .
 RUN chmod 777 ./start.sh
 EXPOSE 3000
 COPY ./srcs/provisioning/dashboard.yaml /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/provisioning/datasource.yaml /etc/grafana/provisioning/datasources
-COPY ./srcs/dashboard_json/ftps-1602910509537.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/grafana-1602910545638.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/influxdb-1602910612507.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/mysql-1602910579338.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/nginx-1602910641594.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/phpmyadmin-1602910673889.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/wordpress-1602910710220.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/provisioning/datasource.yaml /var/lib/grafana/provisioning/datasources/datasource.yaml
+COPY ./srcs/dashboard_json/grafana-1602932849342.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/ftps-1602934415893.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/influxdb-1602934591659.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/mysql-1602934454123.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/phpmyadmin-1602934759970.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/wordpress-1602934546084.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/nginx-1602934484577.json /var/lib/grafana/provisioning/dashboards
+
 COPY ./srcs/grafana /etc/conf.d/grafana
 ENTRYPOINT [ "./start.sh" ]

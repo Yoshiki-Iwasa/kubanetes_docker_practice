@@ -23,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -103,7 +103,7 @@
             {
               "key": "host",
               "operator": "=",
-              "value": "wp-service"
+              "value": "influxdb-deployment-64bf9757d5-znkng"
             }
           ]
         }
@@ -162,7 +162,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "wordpress",
-  "uid": "n_wRIjcMk",
+  "title": "influxdb",
+  "uid": "gCyQjC5Gz",
   "version": 1
 }
