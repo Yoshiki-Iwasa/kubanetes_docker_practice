@@ -135,7 +135,7 @@
  # wordpress の IP を取得して、user.sh の中身を書き換える。
  #wordpress の external-ip 取得
  WP_IP=$(kubectl get svc | grep wp-service | tr -s ' ' | cut -d" " -f 4)
- sed -i -e "s/http:\/\/wp-service:5050/http:\/\/${WP_IP}:5050/g" ./wordpress/srcs/user.sh
+ sed -i -e "s/http:\/\/wp-service:5050/http:\/\/${WP_IP}:5050/g" ./srcs/wordpress/srcs/user.sh
  rm -f ./srcs/wordpress/srcs/user.sh-e
  # wordpress の イメージ作成
  docker build -t wp-test ./srcs/wordpress
