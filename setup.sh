@@ -81,10 +81,10 @@
 
 #!bin/zsh
 #minikube stop
-sudo minikube start --vm-driver=none --extra-config=apiserver.service-node-port-range=1-65535
-eval export DOCKER_TLS_VERIFY="";export DOCKER_HOST="";export DOCKER_CERT_PATH="";export MINIKUBE_ACTIVE_DOCKERD=""
 sudo chmod -R 777 ~/.minikube
 sudo chmod -R 777 ~/.kube
+sudo minikube start --vm-driver=none --extra-config=apiserver.service-node-port-range=1-65535
+eval export DOCKER_TLS_VERIFY="";export DOCKER_HOST="";export DOCKER_CERT_PATH="";export MINIKUBE_ACTIVE_DOCKERD=""
 
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
@@ -98,6 +98,10 @@ kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e 's/mode: ""/mode: "ipvs"' | \
 kubectl apply -f - -n kube-system
 
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/metallb.yaml
+# On first install only
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 #wordpress のイメージ以外すべて作成する。
 
 
