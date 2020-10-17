@@ -85,7 +85,21 @@ minikube start --vm-driver=none --extra-config=apiserver.service-node-port-range
 eval export DOCKER_TLS_VERIFY="";export DOCKER_HOST="";export DOCKER_CERT_PATH="";export MINIKUBE_ACTIVE_DOCKERD=""
 sudo chmod -R 777 ~/.minikube
 sudo chmod -R 777 ~/.kube
+
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl diff -f - -n kube-system
+
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl apply -f - -n kube-system
+
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e 's/mode: ""/mode: "ipvs"' | \
+kubectl apply -f - -n kube-system
+
 #wordpress のイメージ以外すべて作成する。
+
 
 docker build -t nginx-test ./srcs/nginx
 docker build -t ftps-test ./srcs/ftps
