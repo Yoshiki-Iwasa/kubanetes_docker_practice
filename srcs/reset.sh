@@ -1,5 +1,5 @@
 #!bin/zsh
-eval $(minikube docker-env)
+# eval $(minikube docker-env)
 kubectl delete -f ./srcs/k8s/mysql
 kubectl delete -f ./srcs/k8s/nginx
 kubectl delete -f ./srcs/k8s/wordpress
@@ -14,4 +14,5 @@ export DOCKER_TLS_VERIFY=""
 export DOCKER_HOST=""
 export DOCKER_CERT_PATH=""
 export MINIKUBE_ACTIVE_DOCKERD=""
-minikube stop
+rm -rf ~/.lftprc
+sudo minikube stop
