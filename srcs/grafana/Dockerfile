@@ -36,7 +36,7 @@ COPY ./srcs/provisioning/dashboard.yaml /var/lib/grafana/provisioning/dashboards
 COPY ./srcs/provisioning/datasource.yaml /var/lib/grafana/provisioning/datasources/datasource.yaml
 COPY ./srcs/dashboard_json/grafana-1602932849342.json /var/lib/grafana/provisioning/dashboards
 COPY ./srcs/dashboard_json/ftps-1602934415893.json /var/lib/grafana/provisioning/dashboards
-COPY ./srcs/dashboard_json/nfluxdb-1602934591659.json /var/lib/grafana/provisioning/dashboards
+COPY ./srcs/dashboard_json/influxdb-1602934591659.json /var/lib/grafana/provisioning/dashboards
 COPY ./srcs/dashboard_json/mysql-1602934454123.json /var/lib/grafana/provisioning/dashboards
 COPY ./srcs/dashboard_json/phpmyadmin-1602934759970.json /var/lib/grafana/provisioning/dashboards
 COPY ./srcs/dashboard_json/wordpress-1602934546084.json /var/lib/grafana/provisioning/dashboards
