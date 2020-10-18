@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 7,
+  "id": 8,
   "links": [],
   "panels": [
     {
@@ -103,7 +103,7 @@
             {
               "key": "host",
               "operator": "=",
-              "value": "influxdb-deployment-64bf9757d5-znkng"
+              "value": "influxDB"
             }
           ]
         }
@@ -162,7 +162,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "influxdb",
-  "uid": "gCyQjC5Gz",
+  "title": "influxdb_board",
+  "uid": "Q_ZHkktGz",
   "version": 1
 }
