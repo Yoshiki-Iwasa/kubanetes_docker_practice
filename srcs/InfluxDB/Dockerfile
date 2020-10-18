@@ -6,7 +6,7 @@
 #    By: yiwasa <yiwasa@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/25 22:26:11 by yiwasa            #+#    #+#              #
-#    Updated: 2020/10/19 01:48:38 by yiwasa           ###   ########.fr        #
+#    Updated: 2020/10/19 02:50:16 by yiwasa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ RUN apk update \
 #Tregraf インストール
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 	&& apk add telegraf@testing
-
+RUN sed -i -e 's/hostname = ""/hostname = "influxDB"/g' /etc/telegraf.conf
+RUN sed -i -e 's/# urls = \["http:\/\/127.0.0.1:8086"\]/urls = \["http:\/\/127.0.0.1:8086"\]/g' /etc/telegraf.conf
 #InflexDB インストール
 RUN apk add influxdb \
 	&& rc-update add influxdb \
