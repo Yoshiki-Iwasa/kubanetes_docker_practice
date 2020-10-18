@@ -1,10 +1,9 @@
 #!bin/zsh
-# eval $(minikube docker-env)
+eval $(minikube docker-env)
 kubectl delete -f ./srcs/k8s/mysql
 kubectl delete -f ./srcs/k8s/nginx
 kubectl delete -f ./srcs/k8s/wordpress
 kubectl delete -f ./srcs/k8s/phpmyadmin
-kubectl delete -f ./srcs/k8s/wordpress
 kubectl delete -f ./srcs/k8s/grafana
 kubectl delete -f ./srcs/k8s/InfluxDB
 kubectl delete -f ./srcs/k8s/ftps
@@ -15,4 +14,4 @@ export DOCKER_HOST=""
 export DOCKER_CERT_PATH=""
 export MINIKUBE_ACTIVE_DOCKERD=""
 rm -rf ~/.lftprc
-sudo minikube stop
+# minikube stop

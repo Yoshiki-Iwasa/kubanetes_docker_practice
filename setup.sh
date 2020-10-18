@@ -1,6 +1,6 @@
 # # #!bin/zsh
 # # minikube stop
-# minikube start
+# # minikube start
 # #wordpress のイメージ以外すべて作成する。
 # eval $(minikube docker-env)
 # docker build -t nginx-test ./srcs/nginx
@@ -14,44 +14,54 @@
 # kubectl apply -f ./srcs/k8s/MetalLB/metallb-config.yaml
 
 # #InfluxDB の volume と Deployment 作成
-# kubectl apply -f ./srcs/k8s/InfluxDB/inf-pv.yaml
-# kubectl apply -f ./srcs/k8s/InfluxDB/inf-pvc.yaml
+
 # kubectl apply -f ./srcs/k8s/InfluxDB/inf-deployment.yaml
 
-# #grafana の Development 作成
+# # #grafana の Development 作成
 # kubectl apply -f ./srcs/k8s/grafana/grafana-deployment.yaml
 
-# #nginx の deployment 作成
+# # #nginx の deployment 作成
 # kubectl apply -f ./srcs/k8s/nginx/nginx-deployment.yaml
 
-# # # vsftp の Deployment 作成
+# # # # vsftp の Deployment 作成
 # kubectl apply -f ./srcs/k8s/ftps/ftps-development.yaml
 
 # # # mysql の volume と Deployment 作成
-# kubectl apply -f ./srcs/k8s/mysql/mysql-pv.yaml
-# kubectl apply -f ./srcs/k8s/mysql/mysql-pvc.yaml
+
 # kubectl apply -f ./srcs/k8s/mysql/mysql-deployment.yaml
 
-# # #phpmyadmin の Deployment 作成
+# # # #phpmyadmin の Deployment 作成
 # kubectl apply -f ./srcs/k8s/phpmyadmin/pma-deployment.yaml
 
 
-# # #wordpress の Service 作成
+
+# # # #wordpress の Service 作成
 # kubectl apply -f ./srcs/k8s/wordpress/wp-service.yaml
 
 # # # wordpress の IP を取得して、user.sh の中身を書き換える。
 # # #wordpress の external-ip 取得
+
+
+
+# while true
+# do
+#     kubectl get svc | grep wp-service > /dev/null
+#         ret=$?
+#         if [ ret = 0 ]
+#                 break
+# done
+
 # WP_IP=$(kubectl get svc | grep wp-service | tr -s ' ' | cut -d" " -f 4)
 # sed -i -e "s/http:\/\/wp-service:5050/http:\/\/${WP_IP}:5050/g" ./srcs/wordpress/srcs/user.sh
 # rm -f ./srcs/wordpress/srcs/user.sh-e
 
-# # wordpress の イメージ作成
+# # # # wordpress の イメージ作成
 # docker build -t wp-test ./srcs/wordpress
 
-# # #wordpress の Deployment 作成
+# # # # #wordpress の Deployment 作成
 # kubectl apply -f ./srcs/k8s/wordpress/wp-deployment.yaml
 
-# # #以後、 External_IP のルーティング設定をしていく。
+# # # # #以後、 External_IP のルーティング設定をしていく。
 
 # MINIKUBE_IP=$(minikube node list | awk '{print $2}')
 # NGINX_IP=$(kubectl get svc | grep nginx-service | tr -s ' ' | cut -d" " -f 4)
@@ -73,6 +83,10 @@
 # echo "set ftp:ssl-protect-data yes" >> ~/.lftprc
 # echo "set ftp:ssl-protect-fxp yes" >> ~/.lftprc
 # echo "set ssl:verify-certificate no" >> ~/.lftprc
+
+
+
+
 
 
  #!bin/zsh
@@ -98,7 +112,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manife
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/metallb.yaml
 # On first install only
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-#wordpress のイメージ以外すべて作成する。
+# #wordpress のイメージ以外すべて作成する。
 
 
 docker build -t nginx-test ./srcs/nginx
@@ -111,8 +125,7 @@ docker build -t pma-test ./srcs/phpmyadmin
 #MetalLB のConfigMap を apply
 kubectl apply -f ./srcs/k8s/MetalLB/metallb-config.yaml
 #InfluxDB の volume と Deployment 作成
-kubectl apply -f ./srcs/k8s/InfluxDB/inf-pv.yaml
-kubectl apply -f ./srcs/k8s/InfluxDB/inf-pvc.yaml
+
 kubectl apply -f ./srcs/k8s/InfluxDB/inf-deployment.yaml
 #grafana の Development 作成
 kubectl apply -f ./srcs/k8s/grafana/grafana-deployment.yaml
@@ -121,13 +134,13 @@ kubectl apply -f ./srcs/k8s/nginx/nginx-deployment.yaml
 # vsftp の Deployment 作成
 kubectl apply -f ./srcs/k8s/ftps/ftps-development.yaml
 # mysql の volume と Deployment 作成
-kubectl apply -f ./srcs/k8s/mysql/mysql-pv.yaml
-kubectl apply -f ./srcs/k8s/mysql/mysql-pvc.yaml
+
 kubectl apply -f ./srcs/k8s/mysql/mysql-deployment.yaml
 #phpmyadmin の Deployment 作成
 kubectl apply -f ./srcs/k8s/phpmyadmin/pma-deployment.yaml
 #wordpress の Service 作成
 kubectl apply -f ./srcs/k8s/wordpress/wp-service.yaml
+
 # wordpress の IP を取得して、user.sh の中身を書き換える。
 #wordpress の external-ip 取得
 WP_IP=$(kubectl get svc | grep wp-service | tr -s ' ' | cut -d" " -f 4)
@@ -157,6 +170,6 @@ echo "set ftp:ssl-protect-list yes" >> ~/.lftprc
 echo "set ftp:ssl-protect-data yes" >> ~/.lftprc
 echo "set ftp:ssl-protect-fxp yes" >> ~/.lftprc
 echo "set ssl:verify-certificate no" >> ~/.lftprc
-apk add lftp
+apt-get install lftp
 
-sudo minikube dashboard&
+# sudo minikube dashboard&
